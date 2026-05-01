@@ -1,0 +1,8 @@
+name: project_gold_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - flake8
+  - pytest
+  - pandas
