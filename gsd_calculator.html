@@ -1,0 +1,223 @@
+Notepad++<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CACFIEM - UAS Spatial GSD Calibrator</title>
+    <style>
+        body {
+            background-color: #0d0f12;
+            color: #d1d5db;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 30px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #1f2937;
+            background-color: #111827;
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: #10b981;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+        .section-desc {
+            font-style: italic;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        label {
+            width: 250px;
+            font-weight: bold;
+            color: #9ca3af;
+        }
+        input, select {
+            flex-grow: 1;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            color: #ffffff;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        .btn-calc {
+            background-color: #10b981;
+            color: #0d0f12;
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .btn-calc:hover {
+            background-color: #059669;
+        }
+        .results-box {
+            margin-top: 25px;
+            border: 1px solid #374151;
+            background-color: #070a0f;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .results-title {
+            color: #f59e0b;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #1f2937;
+            padding-bottom: 5px;
+        }
+        .result-val {
+            color: #10b981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>UAS Spatial GSD Calibrator</h2>
+    <div class="section-desc">COAST AERIAL CHECK & FORENSIC INTELLIGENCE — CALIBRATION MODULE</div>
+    
+    <div class="form-group">
+        <label for="preset">Sensor Preset:</label>
+        <select id="preset" onchange="applyPreset()">
+            <option value="custom">Custom Configuration</option>
+            <option value="mavic3pro" selected>DJI Mavic 3 Pro (Main 4/3" CMOS)</option>
+            <option value="phantom4rtk">DJI Phantom 4 RTK (1" CMOS)</option>
+            <option value="mavic2pro">DJI Mavic 2 Pro (1" CMOS)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="altitude">Flight Altitude (H) [meters]:</label>
+        <input type="number" id="altitude" value="80" step="1">
+    </div>
+
+    <div class="form-group">
+        <label for="focal">Focal Length (F) [mm]:</label>
+        <input type="number" id="focal" value="24" step="0.1">
+    </div>
+
+    <div class="form-group">
+        <label for="sensor_w">Sensor Width (Sw) [mm]:</label>
+        <input type="number" id="sensor_w" value="17.3" step="0.1">
+    </div>
+
+    <div class="form-group">
+        <label for="sensor_h">Sensor Height (Sh) [mm]:</label>
+        <input type="number" id="sensor_h" value="13.0" step="0.1">
+    </div>
+
+    <div class="form-group">
+        <label for="pixel_w">Image Width (Pw) [pixels]:</label>
+        <input type="number" id="pixel_w" value="5280" step="1">
+    </div>
+
+    <div class="form-group">
+        <label for="pixel_h">Image Height (Ph) [pixels]:</label>
+        <input type="number" id="pixel_h" value="3956" step="1">
+    </div>
+
+    <button class="btn-calc" onclick="calculateGSD()">Calculate GSD and Spatial Footprint</button>
+
+    <div class="results-box">
+        <div class="results-title">Calculated Telemetry Outputs</div>
+        <div class="result-line">
+            <span>Horizontal GSD:</span>
+            <span class="result-val" id="res_gsd_h">0.00 cm/pixel</span>
+        </div>
+        <div class="result-line">
+            <span>Vertical GSD:</span>
+            <span class="result-val" id="res_gsd_v">0.00 cm/pixel</span>
+        </div>
+        <div class="result-line">
+            <span>Mean GSD:</span>
+            <span class="result-val" id="res_gsd_mean" style="color: #f59e0b;">0.00 cm/pixel</span>
+        </div>
+        <div class="result-line">
+            <span>Ground Footprint Width:</span>
+            <span class="result-val" id="res_foot_w">0.00 meters</span>
+        </div>
+        <div class="result-line">
+            <span>Ground Footprint Height:</span>
+            <span class="result-val" id="res_foot_h">0.00 meters</span>
+        </div>
+    </div>
+</div>
+
+<script>
+const presets = {
+    mavic3pro: { focal: 24, sensor_w: 17.3, sensor_h: 13.0, pixel_w: 5280, pixel_h: 3956 },
+    phantom4rtk: { focal: 8.8, sensor_w: 13.2, sensor_h: 8.8, pixel_w: 5472, pixel_h: 3648 },
+    mavic2pro: { focal: 10.3, sensor_w: 13.2, sensor_h: 8.8, pixel_w: 5472, pixel_h: 3648 }
+};
+
+function applyPreset() {
+    const selected = document.getElementById('preset').value;
+    if (selected !== 'custom' && presets[selected]) {
+        const p = presets[selected];
+        document.getElementById('focal').value = p.focal;
+        document.getElementById('sensor_w').value = p.sensor_w;
+        document.getElementById('sensor_h').value = p.sensor_h;
+        document.getElementById('pixel_w').value = p.pixel_w;
+        document.getElementById('pixel_h').value = p.pixel_h;
+    }
+}
+
+function calculateGSD() {
+    const H = parseFloat(document.getElementById('altitude').value);
+    const F = parseFloat(document.getElementById('focal').value);
+    const Sw = parseFloat(document.getElementById('sensor_w').value);
+    const Sh = parseFloat(document.getElementById('sensor_h').value);
+    const Pw = parseFloat(document.getElementById('pixel_w').value);
+    const Ph = parseFloat(document.getElementById('pixel_h').value);
+
+    if (isNaN(H) || isNaN(F) || isNaN(Sw) || isNaN(Sh) || isNaN(Pw) || isNaN(Ph) || F === 0 || Pw === 0 || Ph === 0) {
+        alert("Invalid inputs detected. Please check numeric values.");
+        return;
+    }
+
+    const gsdH = (H * Sw * 100) / (F * Pw);
+    const gsdV = (H * Sh * 100) / (F * Ph);
+    const gsdMean = (gsdH + gsdV) / 2;
+
+    const footW = (H * Sw) / F;
+    const footH = (H * Sh) / F;
+
+    document.getElementById('res_gsd_h').innerText = gsdH.toFixed(2) + " cm/pixel";
+    document.getElementById('res_gsd_v').innerText = gsdV.toFixed(2) + " cm/pixel";
+    document.getElementById('res_gsd_mean').innerText = gsdMean.toFixed(2) + " cm/pixel";
+    document.getElementById('res_foot_w').innerText = footW.toFixed(2) + " meters";
+    document.getElementById('res_foot_h').innerText = footH.toFixed(2) + " meters";
+}
+
+calculateGSD();
+</script>
+</body>
+</html> 
