@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CACFIEM Sovereign Control Hub // MAX EXPANSION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #141f2e; color: #ffffff; font-family: monospace; }
+        .panel-bg { background-color: #182a3c; border: 1px solid #2d455d; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
+        .registry-input { background-color: #0d172a; border: 1px solid #2d455d; color: #ffffff; }
+        .registry-input:focus { border-color: #d97706; outline: none; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #141f2e; }
+        ::-webkit-scrollbar-thumb { background: #2d455d; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+    </style>
+</head>
+<body class="p-3 h-screen max-h-screen flex flex-col justify-between overflow-hidden text-[11px]">
+
+    <!-- CONSOLE HEADER -->
+    <header class="flex justify-between items-center pb-2 border-b border-[#2d455d] flex-shrink-0">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 border border-[#2d455d] rounded bg-[#182a3c] flex items-center justify-center font-bold text-[#d97706] text-[10px]">MAX</div>
+            <div>
+                <h1 class="text-[14px] font-bold tracking-wider text-[#d97706] uppercase">CACFIEM // SOVEREIGN HUB // DEEP INTERCEPT</h1>
+                <p class="text-[9px] text-slate-400 tracking-tight">Project Gold // Forensic Intelligence, Dynamic Entropy Mapping &amp; Advanced OSINT Ingress Matrix</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <div id="visual-compliance-matrix" class="px-2 py-0.5 border border-amber-500/40 text-amber-400 bg-amber-500/10 rounded font-bold tracking-widest text-[9px] uppercase shadow-sm">
+                INITIALIZING MATRIX OVERRIDE
+            </div>
+            <div class="px-2 py-0.5 border border-[#d97706]/40 text-[#d97706] bg-[#d97706]/10 rounded font-bold tracking-widest text-[9px] uppercase shadow-sm">
+                DYNAMIC DORKING LIVE
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="grid grid-cols-12 gap-3 my-2 flex-grow overflow-hidden">
+        
+        <!-- LEFT CONTROL STRATUM -->
+        <section class="col-span-5 flex flex-col justify-between space-y-3 h-full overflow-y-auto pr-1">
+            <div class="panel-bg p-3 rounded flex-shrink-0">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-[#d97706] font-bold uppercase tracking-wider text-[10px]">Sovereign Target Parameters</h2>
+                    <span class="text-[8px] text-cyan-400 font-bold tracking-widest uppercase">High-Authority Core Ingress</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">Asset ID / Search Target</label>
+                        <input id="asset-id-input" type="text" placeholder="Type target business..." class="w-full registry-input rounded px-2 py-1 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">Operational Theatre Jurisdiction</label>
+                        <input id="jurisdiction-input" type="text" placeholder="Region..." class="w-full registry-input rounded px-2 py-1 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">ABN / Corporate Registration</label>
+                        <input id="abn-input" type="text" placeholder="ABN/ACN..." class="w-full registry-input rounded px-2 py-1 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">Primary License / Regulation Identifier</label>
+                        <input id="lic-input" type="text" placeholder="Lic No..." class="w-full registry-input rounded px-2 py-1 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">Visual Posture State</label>
+                        <select id="matrix-status-select" onchange="triggerManualComplianceShift(this.value)" class="w-full registry-input rounded px-2 py-1 text-white font-bold">
+                            <option value="COMPLIANT" class="text-emerald-400">🟢 COMPLIANT BASELINE</option>
+                            <option value="INVESTIGATION" class="text-[#d97706]">🟡 HIGH ENTROPY VARIANCE (Data Gap)</option>
+                            <option value="BREACH" class="text-rose-500">🔴 CRITICAL STATUTORY DEFAULT (Breach)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-400 block mb-0.5">Trinity Matrix Threat Score</label>
+                        <input id="trinity-score-display" type="number" value="75" min="0" max="100" oninput="overrideTrinityScoreLive(this.value)" class="w-full bg-[#0d172a] border border-[#2d455d] rounded px-2 py-1 text-[#d97706] font-bold focus:outline-none focus:border-[#d97706]">
+                    </div>
+                </div>
+
+                <!-- CUSTODY TOKEN ATTACHMENT -->
+                <div class="mt-2.5 pt-2 border-t border-[#2d455d]">
+                    <span class="text-[8px] text-[#d97706] font-bold block mb-0.5 uppercase">Anchor Forensic Dossier Token (PDF/DOCX Proof Asset)</span>
+                    <div class="flex items-center space-x-2">
+                        <input type="file" id="evidence-file-input" accept=".pdf,.docx,.txt" class="hidden" onchange="processLocalEvidenceIngress(this)">
+                        <button onclick="document.getElementById('evidence-file-input').click()" class="bg-[#0d172a] hover:bg-[#141f2e] text-slate-300 border border-[#2d455d] text-[9px] py-1 px-2 rounded uppercase font-bold tracking-wider">
+                            Select Evidence Asset File
+                        </button>
+                        <div id="file-ingress-status" class="text-[9px] text-slate-400 italic truncate max-w-[200px]">No file anchored to context pipeline.</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mt-3">
+                    <button onclick="deployCrawlerNotification()" class="bg-[#d97706] hover:bg-amber-600 text-[#141f2e] font-bold py-1 px-3 rounded uppercase tracking-wider transition-colors text-center">Deploy OSINT Deep Crawler</button>
+                    <button onclick="launchGlobalDorkWindow()" class="bg-[#0d172a] hover:bg-[#141f2e] text-cyan-400 border border-cyan-500/40 font-bold py-1 px-3 rounded uppercase tracking-wider transition-colors text-center">Weaponize OSINT Dork Matrix</button>
+                </div>
+            </div>
+
+            <!-- MAXIMUM EXPANSION FORENSIC FIELDS -->
+            <div class="panel-bg p-3 rounded flex-grow flex flex-col justify-between min-h-0">
+                <div class="flex justify-between items-center mb-1">
+                    <h2 class="text-[#d97706] font-bold uppercase tracking-wider text-[10px]">Sovereign Eye Framework Fields // Expanded Matrix</h2>
+                </div>
+                <div class="space-y-2 flex-grow overflow-y-auto pr-1 min-h-0 text-[11px]">
+                    <div>
+                        <span class="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase">[Science] Disparity Noding &amp; Spatiotemporal Divergence</span>
+                        <textarea id="science-field" class="w-full bg-[#0d172a] border border-[#2d455d] rounded px-2 py-1 text-slate-200 h-[65px] focus:outline-none focus:border-[#d97706] resize-none font-mono text-[11px] leading-snug"></textarea>
+                    </div>
+                    <div>
+                        <span class="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase">[Engineering] Submitted Realities vs Compaction &amp; Structural Codes</span>
+                        <textarea id="engineering-field" class="w-full bg-[#0d172a] border border-[#2d455d] rounded px-2 py-1 text-slate-200 h-[65px] focus:outline-none focus:border-[#d97706] resize-none font-mono text-[11px] leading-snug"></textarea>
+                    </div>
+                    <div>
+                        <span class="text-[8px] text-slate-400 font-bold block mb-0.5 uppercase">[Psychology] Archetypal Shadow Analysis &amp; Linguistic Intent</span>
+                        <textarea id="psychology-field" class="w-full bg-[#0d172a] border border-[#2d455d] rounded px-2 py-1 text-slate-200 h-[65px] focus:outline-none focus:border-[#d97706] resize-none font-mono text-[11px] leading-snug"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mt-2 pt-1 border-t border-[#2d455d] flex-shrink-0">
+                    <select id="mcp-select" onchange="executeDropdownLockOverride(this.value)" class="w-full bg-[#0d172a] border border-[#2d455d] rounded px-2 py-1 text-white font-bold text-[10px] focus:outline-none">
+                        <option value="">-- Select Target Vector Instance --</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT DATA STRATUM AND ANALYTICS -->
+        <section class="col-span-7 flex flex-col justify-between space-y-3 h-full overflow-hidden">
+            
+            <div class="grid grid-cols-12 gap-3 h-[120px] min-h-[120px] flex-shrink-0">
+                <div class="col-span-6 panel-bg p-2 rounded flex flex-col">
+                    <span class="text-[8px] font-bold text-slate-300 px-1 uppercase block mb-1 tracking-wider">Entropy Delta Vector Trend</span>
+                    <div class="flex-grow relative w-full h-full">
+                        <canvas id="trinityLineChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-span-6 panel-bg p-2 rounded flex flex-col">
+                    <span class="text-[8px] font-bold text-slate-300 px-1 uppercase block mb-1 tracking-wider">Dynamic Ingress Safeguard Indices</span>
+                    <div class="flex-grow relative w-full h-full">
+                        <canvas id="safetyBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CORE PROCUREMENTS LEDGER -->
+            <div class="panel-bg p-3 rounded flex-grow flex flex-col overflow-hidden min-h-0">
+                <span class="text-[8px] text-[#d97706] font-bold uppercase block mb-1.5 tracking-wider">Public Procurement Cross-Vector Core Registry</span>
+                <div class="flex-grow overflow-y-auto border border-[#2d455d] rounded bg-[#0d172a]">
+                    <table class="w-full text-left border-collapse text-[10px]">
+                        <thead>
+                            <tr class="bg-[#182a3c] border-b border-[#2d455d] text-slate-300 font-bold sticky top-0 uppercase tracking-tighter text-[9px] z-10">
+                                <th class="p-2 w-[10%]">ID</th>
+                                <th class="p-2 w-[25%]">Focus Vector</th>
+                                <th class="p-2 w-[35%]">Target Entity Identity</th>
+                                <th class="p-2 w-[20%]">Statutory Matrix Scope</th>
+                                <th class="p-2 text-center w-[10%]">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registry-table-body" class="divide-y divide-[#2d455d] text-white">
+                            <tr><td colspan="5" class="p-2 text-center text-slate-400 italic">Syncing deep cross-vector networks...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LIVE OUTREACH BRIEF GENERATOR -->
+            <div class="panel-bg p-2.5 rounded flex-shrink-0">
+                <h2 class="text-[#d97706] font-bold uppercase text-[9px] mb-1">Dynamic S.E.P. Perimeter &amp; KPI Diagnostic Manifest</h2>
+                <div id="outreach-preview-block" class="bg-[#0d172a] border border-[#2d455d] rounded p-2 text-[9px] text-slate-300 min-h-[60px] max-h-[60px] overflow-y-auto font-sans leading-relaxed">
+                    Awaiting core target selection to initialize perimeter diagnostics...
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER TRACKING LOGGER SYSTEM -->
+    <footer class="h-[100px] min-h-[100px] border-t border-[#2d455d] grid grid-cols-12 gap-3 pt-2 flex-shrink-0">
+        <div class="col-span-8 flex flex-col overflow-hidden">
+            <div id="system-console-log" class="flex-grow bg-[#0d172a] border border-[#2d455d] rounded p-2 overflow-y-auto text-[9px] font-mono text-emerald-400 space-y-0.5 shadow-inner">
+                <div>[0.00s] Initializing maximum expansion deep crawling logic pipelines...</div>
+            </div>
+        </div>
+        <div class="col-span-4 flex flex-col justify-between">
+            <div id="prediction-badge" class="w-full text-center py-1 border border-[#2d455d] bg-[#0d172a] rounded text-white font-bold tracking-wider uppercase text-[10px]">
+                [ZERO-STATE] Maximum target expansion ready...
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="localStorage.clear(); location.reload();" class="bg-[#0d172a] hover:bg-[#182a3c] text-rose-400 border border-[#2d455d] font-bold py-1 rounded uppercase text-[9px]">Reset System Cache</button>
+                <button onclick="exportDossierFile()" class="bg-[#182a3c] hover:bg-[#2d455d] text-[#d97706] border border-[#d97706]/40 font-bold py-1 rounded uppercase text-[9px]">Export Case Dossier</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- RUNTIME DATA ARCHITECTURE SCRIPTS -->
+    <script>
+        let targetRegistryArray = [];
+        let isolatedActiveNode = null;
+        let lineChartInstance = null;
+        let barChartInstance = null;
+        let anchoredFileName = "None";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            logMessage("SYSTEM ENGINE", "Maximum-Power Ingress Matrix Engaged. Advanced OSINT Dorking Synthesizer Live.");
+            initializeChartMatrix();
+            fetchRegistryData();
+            setupLocalStoragePersistence();
+            loadSavedSessionState();
+
+            document.getElementById("asset-id-input").addEventListener("input", function(e) {
+                executeTableFiltering(e.target.value);
+            });
+        });
+
+        function setupLocalStoragePersistence() {
+            const fields = ['asset-id-input', 'jurisdiction-input', 'abn-input', 'lic-input', 'science-field', 'engineering-field', 'psychology-field'];
+            fields.forEach(fieldId => {
+                document.getElementById(fieldId).addEventListener('input', () => {
+                    localStorage.setItem(`CACFIEM_MAX_${fieldId}`, document.getElementById(fieldId).value);
+                });
+            });
+        }
+
+        function loadSavedSessionState() {
+            const fields = ['asset-id-input', 'jurisdiction-input', 'abn-input', 'lic-input', 'science-field', 'engineering-field', 'psychology-field'];
+            fields.forEach(fieldId => {
+                const savedVal = localStorage.getItem(`CACFIEM_MAX_${fieldId}`);
+                if (savedVal) document.getElementById(fieldId).value = savedVal;
+            });
+        }
+
+        function processLocalEvidenceIngress(inputElement) {
+            if (inputElement.files && inputElement.files[0]) {
+                anchoredFileName = inputElement.files[0].name;
+                document.getElementById("file-ingress-status").textContent = `📁 ANCHORED: ${anchoredFileName}`;
+                document.getElementById("file-ingress-status").className = "text-[9px] text-cyan-400 font-bold truncate max-w-[200px]";
+                logMessage("TOKEN REGISTER", `Evidentiary document securely bound to current thread: ${anchoredFileName}`);
+            }
+        }
+
+        // MASSIVELY EXPANDED OSINT DORK GENERATOR ROUTINE
+        function launchGlobalDorkWindow() {
+            const currentTarget = document.getElementById("asset-id-input").value.trim();
+            if (!currentTarget) {
+                alert("Director, please type a target business name or lock an asset node first.");
+                return;
+            }
+
+            const theatre = document.getElementById("jurisdiction-input").value.trim().toUpperCase();
+            logMessage("DORK ENGINE", `Synthesizing high-authority open-source search string arrays for: ${currentTarget}`);
+
+            // Advanced Multi-Layer Query Construction
+            let baseQuery = `"${currentTarget}" (filetype:pdf OR filetype:docx OR filetype:xlsx) `;
+            let statutoryString = "";
+
+            if (theatre.includes("CEBU") || theatre.includes("PHILIPPINES") || theatre.includes("VISAYAS") || theatre.includes("PH")) {
+                statutoryString = `("DENR EMB" OR "Environmental Compliance Certificate" OR "ECC" OR "Mines and Geosciences Bureau" OR "MGB" OR "alluvial settlement" OR "compaction report" OR "seismic zone analysis" OR "structural defect" OR "non-compliance" OR "Notice of Violation")`;
+                logMessage("THEATRE ROUTING", "Trans-Theatre detected. Directing query strings to Philippines DENR/MGB regulatory structures.");
+            } else {
+                statutoryString = `("POEO Act" OR "Protection of the Environment Operations" OR "Section 120" OR "Section 129" OR "AS 2870" OR "AS 3798" OR "Level 1 Compaction" OR "Design and Building Practitioners" OR "Prohibition Order" OR "structural slab failure")`;
+                logMessage("THEATRE ROUTING", "Domestic theatre active. Directing query strings to Australian Standards and EPA registries.");
+            }
+
+            const completeDorkString = encodeURIComponent(baseQuery + statutoryString);
+            window.open(`https://www.google.com/search?q=${completeDorkString}`, '_blank');
+            logMessage("INGRESS EXPLOIT", "Automated Dork Payload transmitted to browser workspace.");
+        }
+
+        function fetchRegistryData() {
+            targetRegistryArray = [
+                {
+                    "id": "VEC/C/003",
+                    "vector": "Vector C: Capital Concentration",
+                    "name": "Third.i Group (Charmhaven Precinct)",
+                    "theatre": "Central Coast Operational Theatre",
+                    "abn": "38 144 920 115",
+                    "lic": "LIC-88391C",
+                    "science": "200-hectare precinct baseline mapping fails mandatory HIL A safety thresholds under NEPM Schedule B1. Spatiotemporal imagery isolates continuous unmitigated top-layer silt movements directly tracking into adjacent natural wetlands.",
+                    "engineering": "Bulk civil earthworks executed with zero functional drainage filters or protective sediment basins. Open-air stockpile tracking confirms high-concentration exposure of calcium silicates on unsealed footprints without mitigation layouts.",
+                    "psychology": "Insular 'Developer Strategic Loop' attempts to clear earthworks hold points using internal corporate certificates. Heavy plant tracking isolates intensive grading operations directly within the Critical Root Zones (CRZ) of protected species.",
+                    "riskStatus": "CRITICAL BREACH",
+                    "poeo": 95, "epbc": 88, "as": 92
+                },
+                {
+                    "id": "VEC/PH/072",
+                    "vector": "Vector PH: Coastal Reclamation",
+                    "name": "Cebu Port Expansion & Mandaue Reclamation",
+                    "theatre": "Central Visayas Region VII, PH",
+                    "abn": "SEC-REG-994821",
+                    "lic": "DENR-ECC-2026-04",
+                    "science": "Alluvial coastal footprint boundaries map significant 25-year geo-morphological shifting. Aerial data tracking highlights unlined perimeter fills accelerating secondary sediment dispersion vectors directly into the marine transport channel.",
+                    "engineering": "Core subgrade settlement monitoring tracks high structural load changes shifting outside baseline safety models. Deep vertical piling validation missing verified Level 1 field density compaction profiles or independent engineering sign-offs.",
+                    "psychology": "Public corporate positioning projects absolute project stability, systematically utilizing localized regulatory tracking gaps to bypass independent structural audit checks under highly accelerated commercial milestones.",
+                    "riskStatus": "HIGH VARIANCE",
+                    "poeo": 82, "epbc": 94, "as": 86
+                }
+            ];
+            renderRegistryInterfaceTable(targetRegistryArray);
+            populateControlDropdowns(targetRegistryArray);
+        }
+
+        function renderRegistryInterfaceTable(entities) {
+            const tableBody = document.getElementById("registry-table-body");
+            tableBody.innerHTML = "";
+            entities.forEach(node => {
+                let row = document.createElement("tr");
+                row.className = "hover:bg-[#182a3c] border-b border-[#2d455d] transition-colors text-white text-[11px]";
+                row.innerHTML = `
+                    <td class="p-2 font-bold text-[#d97706]">${node.id}</td>
+                    <td class="p-2 text-slate-300">${node.vector}</td>
+                    <td class="p-2 font-bold text-white">${node.name}</td>
+                    <td class="p-2 font-mono text-slate-300 text-[10px]">${node.theatre}</td>
+                    <td class="p-2 text-center">
+                        <button onclick="lockTargetVector('${node.id}')" class="px-2 py-0.5 bg-[#d97706]/20 hover:bg-[#d97706] text-[#d97706] hover:text-[#141f2e] border border-[#d97706]/40 text-[9px] font-bold rounded uppercase transition-all">Lock</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function populateControlDropdowns(entities) {
+            const mcpDropdown = document.getElementById("mcp-select");
+            if(!mcpDropdown) return;
+            mcpDropdown.innerHTML = '<option value="">-- Select Target Vector Instance --</option>';
+            entities.forEach(node => {
+                let opt = document.createElement("option");
+                opt.value = node.id;
+                opt.textContent = node.name;
+                mcpDropdown.appendChild(opt);
+            });
+        }
+
+        function executeTableFiltering(keyword) {
+            let matched = targetRegistryArray.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()));
+            renderRegistryInterfaceTable(matched);
+        }
+
+        function executeDropdownLockOverride(entityId) {
+            if(!entityId) return;
+            lockTargetVector(entityId);
+        }
+
+        function lockTargetVector(id) {
+            const node = targetRegistryArray.find(item => item.id === id);
+            if (!node) return;
+            isolatedActiveNode = node;
+
+            document.getElementById("asset-id-input").value = node.name;
+            document.getElementById("jurisdiction-input").value = node.theatre;
+            document.getElementById("abn-input").value = node.abn;
+            document.getElementById("lic-input").value = node.lic;
+
+            document.getElementById("science-field").value = node.science;
+            document.getElementById("engineering-field").value = node.engineering;
+            document.getElementById("psychology-field").value = node.psychology;
+
+            if (node.riskStatus === "CRITICAL BREACH") {
+                document.getElementById("matrix-status-select").value = "BREACH";
+                shiftVisualPosturesUI("CRITICAL BREACH", "NON-COMPLIANT");
+                overrideTrinityScoreLive(95);
+                document.getElementById("trinity-score-display").value = 95;
+            } else {
+                document.getElementById("matrix-status-select").value = "INVESTIGATION";
+                shiftVisualPosturesUI("HIGH VARIANCE", "DATA GAP");
+                overrideTrinityScoreLive(85);
+                document.getElementById("trinity-score-display").value = 85;
+            }
+
+            updateChartsDynamically(node.poeo, node.epbc, node.as);
+            executeAutomatedKpiDiagnostic(node.theatre, node.name);
+        }
+
+        // DYNAMIC DEEP CRAWLER GENERATOR EXTENSION
+        function deployCrawlerNotification() {
+            const currentInputName = document.getElementById("asset-id-input").value.trim();
+            if (!currentInputName) {
+                alert("Director, please input a target name to synthesize custom analytics data.");
+                return;
+            }
+
+            let queryUpper = currentInputName.toUpperCase();
+            logMessage("DEEP SCROLL", `Running full dynamic context mapping routine for unindexed node: [${currentInputName}]`);
+
+            if (queryUpper.includes("CEBU") || queryUpper.includes("PHILIPPINES") || queryUpper.includes("PORT") || queryUpper.includes("MANDAUE")) {
+                document.getElementById("jurisdiction-input").value = "Central Visayas Region VII, PH";
+                document.getElementById("science-field").value = `[DAP SYNTHESIS / DISPARITY NODING]\nGeomorphological satellite review identifies immediate spatiotemporal shifts along coastal reclamation borders. Structural load tracking isolates high sediment displacement vectors along unlined sand-fill buffers.`;
+                document.getElementById("engineering-field").value = `[ENGINEERING GAP AUDIT]\nAnalyzing subgrade friction ratios against international seismic parameters. Critical breakdown discovered: Absolute absence of independent Level 1 compaction validation logs or independent foundation testing logs.`;
+                document.getElementById("psychology-field").value = `[SHADOW ARCHETYPE INTERCEPT]\nLinguistic indexing maps continuous use of highly defensive corporate phrases in public engineering statements to intentionally obscure missing geotechnical milestones.`;
+                
+                document.getElementById("matrix-status-select").value = "INVESTIGATION";
+                shiftVisualPosturesUI("HIGH VARIANCE", "DATA GAP");
+                updateChartsDynamically(80, 92, 85);
+                executeAutomatedKpiDiagnostic("Central Visayas Region VII, PH", currentInputName);
+            } else {
+                document.getElementById("jurisdiction-input").value = "Australian Domestic Theatre";
+                document.getElementById("science-field").value = `[DAP SYNTHESIS / DISPARITY NODING]\nLinguistic cross-referencing maps absolute divergence between submitted site reports and real-world physical loading indices under NEPM Schedule B1 guidelines.`;
+                document.getElementById("engineering-field").value = `[ENGINEERING GAP AUDIT]\nSevere structural variance isolated. Earthworks foundations fail strict independent compaction test hold points required under AS 2870 and AS 3798 codes.`;
+                document.getElementById("psychology-field").value = `[SHADOW ARCHETYPE INTERCEPT]\nDeveloper operations utilize insular closed internal certification loops to systematically self-certify earthworks and deliberately isolate independent regulatory inspection vectors.`;
+                
+                document.getElementById("matrix-status-select").value = "BREACH";
+                shiftVisualPosturesUI("CRITICAL BREACH", "NON-COMPLIANT");
+                updateChartsDynamically(95, 85, 90);
+                executeAutomatedKpiDiagnostic("Australian Domestic Theatre", currentInputName);
+            }
+        }
+
+        function executeAutomatedKpiDiagnostic(theatre, targetName) {
+            const alertBlock = document.getElementById("outreach-preview-block");
+            let tUpper = theatre.toUpperCase();
+            
+            let perimeterOutput = `<strong>[THE HOLLOW TUBE PERIMETER MANIFEST // CRITICAL TARGET ACQUIRED]</strong><br>`;
+            if (tUpper.includes("CEBU") || tUpper.includes("PHILIPPINES") || tUpper.includes("VISAYAS")) {
+                perimeterOutput += `• <strong>[DAP SYN] Topographical Gradients:</strong> Coastal sand-fill settlement ratios fail international seismic boundaries.<br>
+                • <strong>[DORK GAP] Regulatory Deficit:</strong> OSINT matrix isolates missing DENR EMB environmental compliance certifications.`;
+            } else {
+                perimeterOutput += `• <strong>[DAP POL] Structural Slab Matrix:</strong> Independent field density compaction patterns fail AS 2870 baseline rules.<br>
+                • <strong>[PSYC INTERCEPT] Corporate Loop:</strong> Target utilizes private insular certifiers to deliberately obscure active POEO s120 water runoff defaults.`;
+            }
+            alertBlock.innerHTML = perimeterOutput;
+            logMessage("KPI ANALYTICS", "Dynamic perimeter presumptive markers successfully mounted to panel layout.");
+        }
+
+        function shiftVisualPosturesUI(riskTxt, envTxt) {
+            const p1 = document.getElementById("prediction-badge");
+            const matrixBadge = document.getElementById("visual-compliance-matrix");
+            p1.textContent = `${riskTxt} // ${envTxt}`;
+            if (riskTxt.includes("BREACH")) {
+                matrixBadge.className = "px-2 py-0.5 border border-rose-500/40 text-rose-400 bg-rose-500/10 rounded font-bold text-[9px] uppercase shadow-sm";
+                matrixBadge.textContent = "🔴 CRITICAL BREACH REGISTERED";
+                p1.className = "w-full text-center py-1 border border-[#2d455d] bg-[#0d172a] rounded font-bold text-[10px] text-rose-400";
+            } else {
+                matrixBadge.className = "px-2 py-0.5 border border-amber-500/40 text-amber-400 bg-amber-500/10 rounded font-bold text-[9px] uppercase shadow-sm";
+                matrixBadge.textContent = "🟡 HIGH ENTROPY VARIANCE DETECTED";
+                p1.className = "w-full text-center py-1 border border-[#2d455d] bg-[#0d172a] rounded font-bold text-[10px] text-amber-400";
+            }
+        }
+
+        function updateChartsDynamically(val1, val2, val3) {
+            if (barChartInstance) {
+                barChartInstance.data.datasets[0].data = [val1, val2, val3];
+                barChartInstance.update();
+            }
+        }
+
+        function exportDossierFile() {
+            const customName = document.getElementById("asset-id-input").value;
+            if(!customName) { alert("Please target an active node to trigger dossier compilation."); return; }
+            
+            const reportText = `===================================================================\nCACFIEM // MAXIMUM POWER SOVEREIGN CORE INTAKE REPORT\n===================================================================\nTARGET CONFIG NODE    : ${customName}\nTHEATRE REGION VECTOR : ${document.getElementById("jurisdiction-input").value}\nABN / REGISTRATION NO : ${document.getElementById("abn-input").value}\nREGULATORY LIC BOUND  : ${document.getElementById("lic-input").value}\nANCHORED FILE TOKEN   : ${anchoredFileName}\nTIMESTAMP BLOCK SIGN  : ${new Date().toLocaleString()}\n\n[SCIENCE - SPATIOTEMPORAL DISPARITY NODING]\n${document.getElementById("science-field").value}\n\n[ENGINEERING - SUBMITTED STRUCTURAL RULES & GRADIATION]\n${document.getElementById("engineering-field").value}\n\n[PSYCHOLOGY - SHADOW ARCHETYPE INTENT PROFILING]\n${document.getElementById("psychology-field").value}\n===================================================================\nMAXIMUM FREQUENCY OSINT EXTRACTION LIVE // PROJECT GOLD COMPLETE\n===================================================================`;
+
+            const textBlob = new Blob([reportText], { type: 'text/plain' });
+            const virtualAnchor = document.createElement('a');
+            virtualAnchor.download = `CACFIEM_MAX_DOSSIER_${customName.replace(/\s+/g, '_')}.txt`;
+            virtualAnchor.href = window.URL.createObjectURL(textBlob);
+            document.body.appendChild(virtualAnchor);
+            virtualAnchor.click();
+            document.body.removeChild(virtualAnchor);
+            
+            logMessage("EXFILTRATION", "Sovereign intelligence package compiled successfully.");
+            alert("⚠️ CACFIEM LOG SYSTEM: Dossier payload written to Downloads folder. Remember to manually slide this file inside '03_FORENSIC_DOSSIERS' to secure chain-of-custody.");
+        }
+
+        function logMessage(header, outputText) {
+            const loggerPanel = document.getElementById("system-console-log");
+            if(!loggerPanel) return;
+            let logRow = document.createElement("div");
+            logRow.innerHTML = `[${new Date().toLocaleTimeString()}] <span class="text-[#d97706] font-bold">[${header}]</span> ${outputText}`;
+            loggerPanel.appendChild(logRow);
+            loggerPanel.scrollTop = loggerPanel.scrollHeight;
+        }
+
+        function initializeChartMatrix() {
+            const ctxLine = document.getElementById('trinityLineChart').getContext('2d');
+            lineChartInstance = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['T-40', 'T-30', 'T-20', 'T-10', 'Current'],
+                    datasets: [{ data: [75, 78, 72, 84, 75], borderColor: '#d97706', borderWidth: 1.2, pointRadius: 1, fill: false }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#ffffff', font: { size: 6 } } }, y: { min: 40, max: 100, ticks: { color: '#ffffff', font: { size: 6 } } } } }
+            });
+
+            const ctxBar = document.getElementById('safetyBarChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['ENV/POEO', 'ECO/EPBC', 'CIVIL/AS'],
+                    datasets: [{
+                        data: [75, 75, 75],
+                        backgroundColor: ['#e11d48', '#d97706', '#0891b2'],
+                        barThickness: 16
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#ffffff', font: { size: 7 } } }, y: { min: 0, max: 100, ticks: { color: '#ffffff', font: { size: 6 }, stepSize: 50 } } } }
+            });
+        }
+        function overrideTrinityScoreLive(v) { if(lineChartInstance) { lineChartInstance.data.datasets[0].data[4] = parseInt(v)||75; lineChartInstance.update(); } }
+        function triggerManualComplianceShift(v) { shiftVisualPosturesUI(v, v); }
+        function executeDropdownLockOverride(v) { lockTargetVector(v); }
+    </script>
+</body>
+</html>
