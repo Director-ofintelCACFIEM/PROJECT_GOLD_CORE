@@ -1,0 +1,22 @@
+[
+    {
+        "id": "TARGET_001",
+        "branch_name": "master-consensus",
+        "risk_score": 1.2
+    },
+    {
+        "id": "TARGET_002",
+        "branch_name": "feature/unverified-grid-panic",
+        "risk_score": 2.1
+    },
+    {
+        "id": "TARGET_003",
+        "branch_name": "patch/infrastructure-stabilization",
+        "risk_score": 0.8
+    },
+    {
+        "id": "TARGET_004",
+        "branch_name": "feature/epbc-habitat-zone-delta",
+        "risk_score": 2.3
+    }
+]

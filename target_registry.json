@@ -1,0 +1,27 @@
+{
+    "target_id": "GOLD-TARGET-001",
+    "timestamp": "2026-07-25T11:33:19.937568Z",
+    "coordinates": {
+        "lat": -33.8688,
+        "lon": 151.2093
+    },
+    "compliance_flags": {
+        "privacy_act_1988_cleared": true,
+        "poeo_act_threshold_met": true,
+        "epbc_act_assessed": true
+    },
+    "osint_vectors": [
+        {
+            "source_type": "Public Registry Dork",
+            "raw_data_ref": "AS_2870_Compliance_Check",
+            "verified": true,
+            "ingestion_timestamp": "2026-07-25T11:33:19.937582Z"
+        },
+        {
+            "source_type": "Environmental Statutory Cross-Reference",
+            "raw_data_ref": "POEO_Act_1997_Threshold_Review",
+            "verified": true,
+            "ingestion_timestamp": "2026-07-25T11:33:19.937585Z"
+        }
+    ]
+}

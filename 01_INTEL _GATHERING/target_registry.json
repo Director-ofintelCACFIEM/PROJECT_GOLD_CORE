@@ -1,0 +1,20 @@
+[
+    {
+        "id": "TARGET_001",
+        "risk_score": 1.2,
+        "branch_name": "master-consensus",
+        "is_merged": false
+    },
+    {
+        "id": "TARGET_002",
+        "risk_score": 2.1,
+        "branch_name": "feature/unverified-grid-panic",
+        "is_merged": true
+    },
+    {
+        "id": "TARGET_003",
+        "risk_score": 0.8,
+        "branch_name": "patch/infrastructure-stabilization",
+        "is_merged": false
+    }
+]
