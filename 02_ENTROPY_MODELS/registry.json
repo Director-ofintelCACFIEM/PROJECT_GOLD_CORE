@@ -1,6 +1,22 @@
 {
   "project_gold_registry": {
-    "last_updated": "2026-07-16T17:00:00Z",
+    "last_updated": "2026-07-26T13:01:42.838903+00:00",
     "status": "INITIALIZED",
-    "entropy_logs": []
+    "entropy_logs": [
+      {
+        "timestamp": "2026-07-26T13:01:42.837533+00:00",
+        "id": "TARGET_002",
+        "branch_name": "feature/unverified-grid-panic",
+        "risk_score": 2.1,
+        "status": "FLAGGED_HIGH_RISK"
+      },
+      {
+        "timestamp": "2026-07-26T13:01:42.837973+00:00",
+        "id": "TARGET_004",
+        "branch_name": "feature/epbc-habitat-zone-delta",
+        "risk_score": 2.3,
+        "status": "FLAGGED_HIGH_RISK"
+      }
+    ]
   }
+}

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CACFIEM // SOVEREIGN EYE PROTOCOL</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body {
+            background-color: #080a0f;
+            color: #d0d5dd;
+            padding: 10px;
+            font-size: 12px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #12161c;
+            border: 1px solid #ff9900;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header-logo {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #ff9900;
+            border-radius: 4px;
+            object-fit: cover;
+            background: #080a0f;
+        }
+        header h1 {
+            color: #ff9900;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        header p {
+            color: #8a99ad;
+            font-size: 10px;
+        }
+        .badges span {
+            background: #1a222d;
+            border: 1px solid #ff9900;
+            color: #ff9900;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 2px;
+            margin-left: 5px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 10px;
+        }
+        .panel {
+            background: #0d0f12;
+            border: 1px solid #1f2937;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .panel h3 {
+            color: #ff9900;
+            font-size: 11px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 4px;
+        }
+        .form-group {
+            margin-bottom: 8px;
+        }
+        .form-group label {
+            display: block;
+            color: #8a99ad;
+            font-size: 9px;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+        .form-control {
+            width: 100%;
+            background: #12161c;
+            border: 1px solid #2a3748;
+            color: #ffffff;
+            padding: 6px;
+            font-size: 11px;
+            border-radius: 2px;
+        }
+        .form-control:focus {
+            border-color: #ff9900;
+            outline: none;
+        }
+        .btn {
+            width: 100%;
+            background: #ff9900;
+            color: #080a0f;
+            border: none;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .btn:hover {
+            background: #ffaa22;
+        }
+        .btn-alt {
+            background: #12161c;
+            color: #ff9900;
+            border: 1px solid #ff9900;
+        }
+        .btn-alt:hover {
+            background: #1a222d;
+        }
+        .right-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+        th, td {
+            text-align: left;
+            padding: 6px;
+            font-size: 11px;
+            border-bottom: 1px solid #161b22;
+        }
+        th {
+            color: #8a99ad;
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+        td {
+            color: #c9d1d9;
+        }
+        .status-bar {
+            background: #0d0f12;
+            border: 1px solid #1f2937;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 11px;
+        }
+        .status-text {
+            color: #00ffcc;
+        }
+        #drop-zone {
+            border: 2px dashed #ff9900;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #12161c;
+            border-radius: 4px;
+        }
+        #drop-zone:hover {
+            background: #1a222d;
+        }
+        .live-ticker-banner {
+            background: #12161c;
+            border: 1px solid #00ffcc;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #00ffcc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo.png" alt="CACFIEM Logo" class="header-logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'45\' height=\'45\'><rect width=\'45\' height=\'45\' fill=\'%23080a0f\'/><text x=\'5\' y=\'28\' fill=\'%23ff9900\' font-size=\'14\' font-family=\'monospace\'>CAC</text></svg>'">
+            <div>
+                <h1>CACFIEM // SOVEREIGN EYE PROTOCOL (v4.4 EMBEDDED)</h1>
+                <p>Forensic Intelligence, Dynamic Entropy Mapping & OSINT Ingress Deck</p>
+            </div>
+        </div>
+        <div class="badges">
+            <span>SOVEREIGN BASELINE ACTIVE</span>
+            <span>CLEAN ROOM ACTIVE</span>
+        </div>
+    </header>
+
+    <div class="live-ticker-banner">
+        <span>[+] AUTO-SERIALIZER & DB LOCKER: ONLINE</span>
+        <span id="storage-status-counter">Saved State Vectors: 0 | Statutory Guardrails: AS 2870 / POEO Active</span>
+    </div>
+
+    <div class="grid-container">
+        <div>
+            <div class="panel">
+                <h3>Target Parameter Ingress</h3>
+                <div class="form-group">
+                    <label>Asset ID / Search Target</label>
+                    <input type="text" id="ingress-asset-id" class="form-control" placeholder="Type target business...">
+                </div>
+                <div class="form-group">
+                    <label>Operational Theatre</label>
+                    <input type="text" id="ingress-theatre" class="form-control" placeholder="Region...">
+                </div>
+                <div class="form-group">
+                    <label>ABN / Corporate ID</label>
+                    <input type="text" id="ingress-abn" class="form-control" placeholder="ABN/ACN...">
+                </div>
+                <div class="form-group">
+                    <label>Regulatory Identifier</label>
+                    <input type="text" id="ingress-lic" class="form-control" placeholder="Lic No...">
+                </div>
+                <div class="form-group">
+                    <label>Visual Posture State</label>
+                    <select id="ingress-posture" class="form-control">
+                        <option>COMPLIANT BASELINE</option>
+                        <option>BREACH IDENTIFIED</option>
+                        <option>CRITICAL ENTROPY SPIKE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Trinity Threat Score</label>
+                    <input type="text" id="ingress-score" class="form-control" value="75">
+                </div>
+                <div class="form-group">
+                    <label>Anchor Forensic Dossier Token</label>
+                    <button class="btn btn-alt" id="btn-select-file" style="margin-top:0;" type="button">Select Evidence Asset File</button>
+                    <input type="file" id="hidden-file-selector" style="display: none;" />
+                    <p id="file-anchor-status" style="color: #606060; font-size: 9px; margin-top: 3px;">No file anchored.</p>
+                </div>
+                <button class="btn" id="btn-osint" type="button">Deploy OSINT Crawler</button>
+                <button class="btn btn-alt" id="btn-dork" style="margin-top: 5px;" type="button">Weaponize Dork Matrix</button>
+            </div>
+
+            <div class="panel">
+                <h3>[Aerial Asset Ingress] Orthomosaic Grid Mapper</h3>
+                <div id="drop-zone">
+                    <p style="color: #a0a0a0; font-size: 11px; margin: 0;">DRAG & DROP AERIAL IMAGERY / ORTHOMOSAIC PAYLOADS</p>
+                    <p style="color: #606060; font-size: 9px; margin-top: 4px;">Supports RAW, JPG, PNG geotagged frames</p>
+                    <input type="file" id="drone-file-input" multiple style="display: none;" />
+                </div>
+                <div id="upload-status" style="margin-top: 8px; font-size: 10px; color: #00ffcc;">Status: Awaiting aerial payload connection...</div>
+                <div id="grid-canvas-preview" style="margin-top: 8px; height: 60px; background: #12161c; border: 1px solid #2a3748; border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; color: #8a99ad; padding: 4px;">
+                    <span>[Coordinate Grid Canvas Offline]</span>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Sovereign Eye Framework // Tri-Vector Matrix</h3>
+                <div class="form-group">
+                    <label>[Science] Disparity Noding & Spatiotemporal Divergence</label>
+                    <textarea id="vector-science" class="form-control" rows="3" placeholder="Telemetry analysis logs..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>[Engineering] Submitted Realities vs Compaction Codes</label>
+                    <textarea id="vector-engineering" class="form-control" rows="3" placeholder="AS 2870 / AS 3798 compliance vectors..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>[Psychology] Archetypal Shadow Analysis & Intent</label>
+                    <textarea id="vector-psychology" class="form-control" rows="3" placeholder="Behavioral entropy indices..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="panel">
+                <h3>Entropy Delta Vector Trend (Live WebSocket)</h3>
+                <div id="entropy-trend-canvas" style="height: 110px; display: flex; flex-direction: column; justify-content: space-around; padding: 5px; background: #080a0f; border: 1px solid #1f2937; border-radius: 2px;">
+                    <div style="font-size: 9px; color: #8a99ad; display: flex; justify-content: space-between;">
+                        <span>T-MINUS 04:00</span>
+                        <span style="color: #00ffcc;" id="ws-stream-status">LIVE STREAM ACTIVE</span>
+                    </div>
+                    <div style="height: 4px; background: #161b22; width: 100%; position: relative; border-radius: 2px;">
+                        <div id="entropy-bar-1" style="width: 45%; height: 100%; background: #ff9900; border-radius: 2px; transition: width 0.5s ease;"></div>
+                    </div>
+                    <div style="height: 4px; background: #161b22; width: 100%; position: relative; border-radius: 2px;">
+                        <div id="entropy-bar-2" style="width: 72%; height: 100%; background: #ff3333; border-radius: 2px; transition: width 0.5s ease;"></div>
+                    </div>
+                    <div style="font-size: 9px; color: #c9d1d9; display: flex; justify-content: space-between;">
+                        <span>System Thermal Variance: <strong id="thermal-val">1.24σ</strong></span>
+                        <span>Compaction Index: <strong id="compaction-val">0.89</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Dynamic Ingress Safeguard Indices & Thresholds</h3>
+                <div id="safeguard-matrix-status" style="height: 110px; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 5px; background: #080a0f; border: 1px solid #1f2937; border-radius: 2px; font-size: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; color: #8a99ad;">
+                        <span>POEO ACT (1997) MULTIPLIER:</span>
+                        <input type="number" id="poeo-threshold" value="1.0" step="0.1" style="width: 55px; background: #12161c; border: 1px solid #2a3748; color: #00ffcc; text-align: center; font-size: 10px; border-radius: 2px;">
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; color: #8a99ad;">
+                        <span>EPBC ACT (1999) SHIELD:</span>
+                        <input type="number" id="epbc-threshold" value="1.5" step="0.1" style="width: 55px; background: #12161c; border: 1px solid #2a3748; color: #ff9900; text-align: center; font-size: 10px; border-radius: 2px;">
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: #8a99ad; margin-top: 2px;">
+                        <span>AS 2870 / 3798 TOLERANCE:</span>
+                        <span style="color: #00ffcc; font-weight: bold;">OPTIMIZED</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel full-width">
+                <h3>Public Procurement Cross-Vector Core Registry</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Focus Vector</th>
+                            <th>Target Entity Identity</th>
+                            <th>Statutory Matrix Scope</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #606060; padding: 20px;">Loading embedded core registry...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel full-width">
+                <h3>Dynamic S.E.P. Perimeter & KPI Diagnostic Manifest</h3>
+                <p style="color: #8a99ad; font-size: 11px; padding: 5px 0;">Awaiting core target selection to initialize perimeter diagnostics...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div class="status-text">[0.00s] Sovereign Eye Protocol engaged. Command deck telemetry online.</div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-alt" style="margin-top:0; padding: 4px 10px; font-size: 10px;" id="btn-reset-cache" type="button">Reset Cache</button>
+            <button class="btn" style="margin-top:0; padding: 4px 10px; font-size: 10px;" id="btn-export-dossier" type="button">Export Dossier</button>
+        </div>
+    </div>
+
+    <script>
+        const embeddedRegistryData = [
+            { id: "REG-CH-2026-0901", branch_name: "Charmhaven Precinct // Third.i Group", risk_score: 2.1 },
+            { id: "TARGET_001", branch_name: "master-consensus", risk_score: 1.2 },
+            { id: "TARGET_002", branch_name: "feature/unverified-grid-panic", risk_score: 2.1 },
+            { id: "TARGET_003", branch_name: "patch/infrastructure-stabilization", risk_score: 0.8 },
+            { id: "TARGET_004", branch_name: "feature/epbc-habitat-zone-delta", risk_score: 2.3 }
+        ];
+
+        // Live WebSocket Telemetry Simulation
+        setInterval(() => {
+            const thermalVal = document.getElementById('thermal-val');
+            const compactionVal = document.getElementById('compaction-val');
+            if (thermalVal && compactionVal) {
+                thermalVal.innerText = `${(1.20 + Math.random() * 0.15).toFixed(2)}σ`;
+                compactionVal.innerText = `${(0.85 + Math.random() * 0.08).toFixed(2)}`;
+            }
+        }, 3000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const osintBtn = document.getElementById('btn-osint');
+            const dorkBtn = document.getElementById('btn-dork');
+            const selectFileBtn = document.getElementById('btn-select-file');
+            const hiddenFileSelector = document.getElementById('hidden-file-selector');
+            const fileAnchorStatus = document.getElementById('file-anchor-status');
+            const resetBtn = document.getElementById('btn-reset-cache');
+            const exportBtn = document.getElementById('btn-export-dossier');
+            const statusBar = document.querySelector('.status-text');
+            
+            const ingressAsset = document.getElementById('ingress-asset-id');
+            const ingressTheatre = document.getElementById('ingress-theatre');
+            const ingressAbn = document.getElementById('ingress-abn');
+            const ingressLic = document.getElementById('ingress-lic');
+            const ingressScore = document.getElementById('ingress-score');
+            const poeoInput = document.getElementById('poeo-threshold');
+            const epbcInput = document.getElementById('epbc-threshold');
+            const sciLog = document.getElementById('vector-science');
+            const engLog = document.getElementById('vector-engineering');
+            const psyLog = document.getElementById('vector-psychology');
+            const storageCounter = document.getElementById('storage-status-counter');
+
+            // Load saved state vectors
+            let savedCount = 0;
+            if (localStorage.getItem('cac_asset_id')) { ingressAsset.value = localStorage.getItem('cac_asset_id'); savedCount++; }
+            if (localStorage.getItem('cac_theatre')) { ingressTheatre.value = localStorage.getItem('cac_theatre'); savedCount++; }
+            if (localStorage.getItem('cac_abn')) { ingressAbn.value = localStorage.getItem('cac_abn'); savedCount++; }
+            if (localStorage.getItem('cac_lic')) { ingressLic.value = localStorage.getItem('cac_lic'); savedCount++; }
+            if (localStorage.getItem('cac_score')) { ingressScore.value = localStorage.getItem('cac_score'); savedCount++; }
+            if (storageCounter) storageCounter.innerText = `Saved State Vectors: ${savedCount} | Statutory Guardrails Active`;
+
+            function saveToLocker() {
+                localStorage.setItem('cac_asset_id', ingressAsset.value);
+                localStorage.setItem('cac_theatre', ingressTheatre.value);
+                localStorage.setItem('cac_abn', ingressAbn.value);
+                localStorage.setItem('cac_lic', ingressLic.value);
+                localStorage.setItem('cac_score', ingressScore.value);
+                if (storageCounter) storageCounter.innerText = `Saved State Vectors: SYNCED | Clean Room: Active`;
+            }
+
+            // OSINT Crawler Action
+if (osintBtn) {
+    osintBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try {
+            const targetName = ingressTheatre ? ingressTheatre.value.trim() : 'Third.i Group Charmhaven';
+            const queryStr = targetName + ' development application environmental compliance site:nsw.gov.au';
+            if (typeof saveToLocker === 'function') saveToLocker();
+            
+            navigator.clipboard.writeText(queryStr).then(() => {
+                if (statusBar) {
+                    statusBar.innerHTML = `[✓] OSINT query copied to clipboard. Paste into search engine.`;
+                    statusBar.style.color = '#00ffcc';
+                }
+            }).catch(err => {
+                console.error('Clipboard write failed:', err);
+                prompt("Copy OSINT Query manually:", queryStr);
+            });
+        } catch (err) {
+            console.error('OSINT Crawler execution error:', err);
+        }
+    });
+}
+            // Dork Matrix Action
+            if (dorkBtn) {
+                dorkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = ingressAsset.value.trim() || 'REG-CH-2026-0901';
+                    const targetName = ingressTheatre.value.trim() || 'Third.i Group Charmhaven';
+                    saveToLocker();
+                    statusBar.innerHTML = `[+] Weaponizing Dork Matrix for [${targetName}]...`;
+                    statusBar.style.color = '#ff9900';
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent('site:nsw.gov.au ' + targetName + ' environmental breach')}`, '_blank');
+                    setTimeout(() => {
+                        statusBar.innerHTML = `[✓] Dork Matrix query compiled for [${targetName}].`;
+                        statusBar.style.color = '#00ffcc';
+                    }, 1500);
+                });
+            }
+
+            // File Selector Bridge
+            if (selectFileBtn && hiddenFileSelector) {
+                selectFileBtn.addEventListener('click', () => hiddenFileSelector.click());
+                hiddenFileSelector.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) {
+                        fileAnchorStatus.innerText = `Anchored: ${e.target.files[0].name}`;
+                        fileAnchorStatus.style.color = '#00ffcc';
+                    }
+                });
+            }
+
+            // Reset Cache
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    localStorage.clear();
+                    ingressAsset.value = '';
+                    ingressTheatre.value = '';
+                    ingressAbn.value = '';
+                    ingressLic.value = '';
+                    sciLog.value = '';
+                    engLog.value = '';
+                    psyLog.value = '';
+                    if (storageCounter) storageCounter.innerText = `Saved State Vectors: 0 | Clean Room Active`;
+                    statusBar.innerHTML = `[✓] Evidence locker cache cleared successfully.`;
+                    statusBar.style.color = '#00ffcc';
+                });
+            }
+
+            // Export Dossier
+            if (exportBtn) {
+                exportBtn.addEventListener('click', () => {
+                    const content = `# CACFIEM FORENSIC DOSSIER\nAsset: ${ingressAsset.value}\nTheatre: ${ingressTheatre.value}\nThreat Score: ${ingressScore.value}`;
+                    const blob = new Blob([content], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `CACFIEM_Dossier_${ingressAsset.value || 'Target'}.md`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    statusBar.innerHTML = `[✓] Dossier exported successfully to workspace.`;
+                    statusBar.style.color = '#00ffcc';
+                });
+            }
+
+            // Populate Table & Row Click Bindings
+            const tbody = document.querySelector('table tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                embeddedRegistryData.forEach(target => {
+                    const row = document.createElement('tr');
+                    row.style.cursor = 'pointer';
+                    row.innerHTML = '<td>' + target.id + '</td>' +
+                                    '<td>' + target.branch_name + '</td>' +
+                                    '<td>Target Entity Node</td>' +
+                                    '<td>Risk Score: ' + target.risk_score + '</td>' +
+                                    '<td><span style="color: ' + (target.risk_score > 2.0 ? '#ff3333' : '#ff9900') + ';">' + (target.risk_score > 2.0 ? 'BREACH DETECTED' : 'COMPLIANT') + '</span></td>';
+                    
+                    row.addEventListener('click', () => {
+                        ingressAsset.value = target.id;
+                        ingressTheatre.value = target.branch_name;
+                        ingressAbn.value = `ABN-${target.id}-99`;
+                        ingressLic.value = `LIC-${Math.round(target.risk_score * 1000)}`;
+                        ingressScore.value = Math.round(target.risk_score * 30);
+                        statusBar.innerHTML = `[✓] Target locked: ${target.id} (${target.branch_name})`;
+                        statusBar.style.color = '#00ffcc';
+                    });
+
+                    tbody.appendChild(row);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
